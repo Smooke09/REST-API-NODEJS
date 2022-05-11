@@ -1,6 +1,6 @@
-### Anotaçoes da aula NODEJS
+### REST API- BASIC
 
-## Dependencias
+## Dependencies used in projects
 
 - express
 - Nodemon
