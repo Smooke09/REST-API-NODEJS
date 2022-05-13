@@ -5,7 +5,7 @@ let db = new NeDB({
 })
 
 
-const { check, validationResult } = require("express-validator");
+// const { check, validationResult } = require("express-validator");
 
 module.exports = app => {
 
@@ -24,13 +24,11 @@ module.exports = app => {
 
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.json(({
-                    users: [{
-                        users
-                    }]
-                }));
+                res.json({
+                    users
+                });
             }
-        })
+        });
 
 
     });
@@ -38,19 +36,20 @@ module.exports = app => {
     // metodo para inseirir
     route.post((req, res) => {
 
-        if (app.utils.validator.user(app, req, res)) {
-            return false;
-        }
+        if (!app.utils.validator.user(app, req, res)) return false;
 
         db.insert(req.body, (err, user) => {
 
             if (err) {
-
                 app.utils.error.send(err, req, res);
             } else {
+
                 res.status(200).json(user);
+
             }
+
         });
+
     });
 
     let routeId = app.route('/users/:id');
@@ -73,19 +72,18 @@ module.exports = app => {
     // metodo para alterar
     routeId.put((req, res) => {
 
-        if (!app.utils.validator.user(app, req, res)) {
-            return false;
-        };
+        if (!app.utils.validator.user(app, req, res)) return false;
 
         db.update({ _id: req.params.id }, req.body, err => {
 
             if (err) {
-
                 app.utils.error.send(err, req, res);
             } else {
-                res.status(200).json(Object.assign(req.body, req.params));
+                res.status(200).json(Object.assign(req.params, req.body));
             }
+
         });
+
     });
 
     // para deletar

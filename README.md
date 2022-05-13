@@ -1,9 +1,11 @@
-### REST API- BASIC
+### Anotaçoes da aula NODEJS
 
-## Dependencies used in projects
+## Dependencias
 
 - express
 - Nodemon
 - consign
 - body-parser
 - express-validator
+
+### REST API
